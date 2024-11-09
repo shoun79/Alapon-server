@@ -42,10 +42,7 @@ app.get('/', (req, res) => {
 app.get('/test', (req, res) => {
     res.send('For test')
 })
-app.get('/users', async (req, res) => {
-    const users = await User.find().toArray();
-    res.send(users)
-})
+
 
 const server = app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
