@@ -5,7 +5,7 @@ import { renameSync, unlinkSync } from "fs"
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 const createToken = (email, userID) => {
     return jwt.sign({ email, userID }, process.env.JWT_KEY
-        // ,{ expiresIn: maxAge }
+        , { expiresIn: maxAge }
     )
 }
 
@@ -182,7 +182,11 @@ export const removeProfileImage = async (request, response, next) => {
 //Logout
 export const logout = async (request, response, next) => {
     try {
-        response.cookie("jwt", "", { maxAge: 1, secure: true, sameSite: "None" })
+        response.cookie("jwt", "", {
+            maxAge: 1,
+            secure: true,
+            sameSite: "None"
+        })
 
 
         return response.status(200).send("Logout successfully")
