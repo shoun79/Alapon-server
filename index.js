@@ -52,6 +52,11 @@ const server = app.listen(port, () => {
 });
 setupSocket(server);
 
-mongoose.connect(dbUrl)
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000
+})
     .then(() => console.log('DB connect success'))
     .catch((err) => console.log(err.message))
