@@ -16,12 +16,30 @@ const app = express();
 const port = process.env.PORT || 3001;
 const dbUrl = process.env.DB_URL;
 
+// app.use(cors({
+//     origin: [process.env.ORIGIN],
+
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//     credentials: true
+// }));
+
+import cors from 'cors';
+
+const allowedOrigins = [process.env.ORIGIN, 'http://localhost:5173'];
+
 app.use(cors({
-    // origin: [process.env.ORIGIN],
-    origin: process.env.ORIGIN,
+    origin: function (origin, callback) {
+        // Check if origin is allowed
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true
 }));
+
 
 app.use("/uploads/profiles", express.static("uploads/profiles"));
 app.use("/uploads/files", express.static("uploads/files"))
