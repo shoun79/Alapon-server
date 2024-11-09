@@ -8,6 +8,7 @@ import contactsRoutes from "./routes/ContactRoutes.js"
 import setupSocket from "./socket.js"
 import messageRoutes from "./routes/MessagesRoutes.js"
 import channelRoutes from "./routes/ChannelRoutes.js"
+import User from "./models/UserModel.js"
 
 dotenv.config();
 
@@ -38,6 +39,14 @@ app.use("/api/channel", channelRoutes);
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
+app.get('/test', (req, res) => {
+    res.send('For test')
+})
+app.get('/users', async (req, res) => {
+    const users = await User.find();
+    res.send(users)
+})
+
 const server = app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
