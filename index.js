@@ -43,7 +43,7 @@ app.get('/test', (req, res) => {
     res.send('For test')
 })
 app.get('/users', async (req, res) => {
-    const users = await User.find();
+    const users = await User.find().toArray();
     res.send(users)
 })
 
